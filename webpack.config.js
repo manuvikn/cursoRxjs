@@ -29,6 +29,11 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
     },
-    plugins: [new HtmlWebpackPlugin()],
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: './src/index.html'
+      })
+    ],
 
 }
