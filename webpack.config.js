@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
+    devtool: "source-map", // Quita mensajes en consola relacionados con source map
     mode: 'development',
     module: {
         rules: [
@@ -50,7 +51,7 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
     },
-    plugins: [
+    plugins: [ // Plugin para generar un html en el directorio de distribución a partir del index.html indicado
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: './src/index.html'
