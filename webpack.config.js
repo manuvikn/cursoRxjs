@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
+    devtool: "source-map", // Quita mensajes en consola relacionados con source map
     mode: 'development',
     module: {
         rules: [
@@ -18,7 +19,28 @@ module.exports = {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
-              },
+            },
+            {
+              test: /\.(scss)$/,
+              use: [
+                  'style-loader','css-loader',
+                  {
+                    loader: "postcss-loader",
+                    options: {
+                      postcssOptions: {
+                        plugins: [
+                          [
+                            "postcss-preset-env",
+                            {
+                              // Options
+                            },
+                          ],
+                        ],
+                      },
+                    },
+                  },'sass-loader'
+              ]
+            }
           ],
     },
     resolve: {
@@ -29,6 +51,11 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
     },
-    plugins: [new HtmlWebpackPlugin()],
+    plugins: [ // Plugin para generar un html en el directorio de distribución a partir del index.html indicado
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: './src/index.html'
+      })
+    ],
 
 }
