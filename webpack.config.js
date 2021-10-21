@@ -18,7 +18,28 @@ module.exports = {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
-              },
+            },
+            {
+              test: /\.(scss)$/,
+              use: [
+                  'style-loader','css-loader',
+                  {
+                    loader: "postcss-loader",
+                    options: {
+                      postcssOptions: {
+                        plugins: [
+                          [
+                            "postcss-preset-env",
+                            {
+                              // Options
+                            },
+                          ],
+                        ],
+                      },
+                    },
+                  },'sass-loader'
+              ]
+            }
           ],
     },
     resolve: {

@@ -1,4 +1,4 @@
-import '../css/utils.css';
+// import '../css/utils.css';
 
 export const saludar = (nombre: string) => {
     const h1 = document.createElement('h1');
