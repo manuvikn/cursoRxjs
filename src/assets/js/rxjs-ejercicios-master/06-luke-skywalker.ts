@@ -1,6 +1,6 @@
 import { ajax } from 'rxjs/ajax';
 import { switchMap, map } from 'rxjs/operators';
-import { zip, of, pluck, forkJoin } from 'rxjs';
+import { zip, of } from 'rxjs';
 
 /**
  * Ejercicio: 
@@ -59,10 +59,10 @@ import { zip, of, pluck, forkJoin } from 'rxjs';
     // // =======================================
 
 
-   /*  const getPersonaje$ = getRequest(`${SW_API}/people/1`).pipe(
-        pluck('films'),
-        switchMap(([url]) => getRequest(url))
-    ).subscribe(console.log); */
+    getRequest(`${SW_API}/people/1`).pipe(
+        switchMap(res => zip(of(res), getRequest(res.films[0]))),
+        map(([personaje, pelicula]) => ({pelicula, personaje}))
+    ).subscribe(console.log);
 
 
     /* zip(
@@ -73,13 +73,13 @@ import { zip, of, pluck, forkJoin } from 'rxjs';
         ).subscribe(console.log); */
 
 
-    forkJoin({
+/*     forkJoin({
         pelicula: getRequest(`${SW_API}/people/1`).pipe(
             pluck('films'),
             switchMap(([url]) => getRequest(url))),
         personaje: getRequest(`${SW_API}/people/1`)
         }).subscribe(console.log);
-
+ */
 
 })();
 
